@@ -1,0 +1,26 @@
+# Build outputs
+*.obj
+*.o
+*.exe
+*.ilk
+*.pdb
+*.idb
+*.exp
+*.log
+*.tmp
+vc140.pdb
+
+# Runtime data
+GameRecord.txt
+tools/EasyX_*.exe
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.VC.db
+*.VC.opendb
+
+# OS/editor noise
+Thumbs.db
+Desktop.ini
