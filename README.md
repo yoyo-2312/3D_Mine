@@ -2,7 +2,7 @@
 
 Mine3D 是一个使用 C++ 编写的 Windows 桌面 3D 扫雷游戏。
 
-项目使用 EasyX 绘制界面，使用 WinMM 播放音效。当前构建方式已经切换为 MinGW-w64，不再依赖 Visual Studio / MSVC。
+项目使用 MinGW-w64 编译，EasyX 绘制界面，WinMM 播放音效。
 
 ## 截图
 
