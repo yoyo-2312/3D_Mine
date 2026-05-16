@@ -14,6 +14,9 @@ vc140.pdb
 GameRecord.txt
 tools/EasyX_*.exe
 
+# Local dependency cache
+.deps/
+
 # Visual Studio
 .vs/
 *.suo

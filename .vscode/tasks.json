@@ -9,7 +9,7 @@
         "cwd": "${workspaceFolder}"
       },
       "problemMatcher": [
-        "$msCompile"
+        "$gcc"
       ],
       "group": {
         "kind": "build",

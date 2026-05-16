@@ -116,6 +116,9 @@ void Mine3DLoop()
 {
 	while (1)
 	{
+		if (WindowClosed())
+			ExitGame();
+
 		//第一次点击后开始计时
 		if (Mine.fst_click)Time();
 		//显示帮助时其他图片不显示

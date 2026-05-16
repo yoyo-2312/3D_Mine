@@ -3,13 +3,16 @@
     "configurations": [
         {
             "name": "Run Mine3D",
-            "type": "cppvsdbg",
+            "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\Mine3D.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "Build Mine3D"
+            "preLaunchTask": "Build Mine3D",
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb.exe",
+            "externalConsole": false
         }
     ]
 }

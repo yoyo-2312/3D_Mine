@@ -21,6 +21,19 @@ static FILE* OpenRecordFile()
 	rewind(fp);
 	return fp;
 }
+void ExitGame()
+{
+	mciSendString("close all", NULL, 0, NULL);
+	closegraph();
+	exit(0);
+}
+
+bool WindowClosed()
+{
+	HWND hwnd = GetHWnd();
+	return hwnd == NULL || !IsWindow(hwnd) || !IsWindowVisible(hwnd);
+}
+
 //获取文件数据
 void GetBest(FILE* fp)
 {
@@ -222,8 +235,16 @@ void GameInit(int x, int y, int z)
 void MouseEvent()
 {
 	ExMessage msg;
-	while (peekmessage(&msg, EM_MOUSE))
+	while (peekmessage(&msg, EM_MOUSE | EM_WINDOW))
 	{
+		if (msg.message == WM_CLOSE || msg.message == WM_DESTROY)
+		{
+			ExitGame();
+		}
+
+		if (msg.message < WM_MOUSEFIRST || msg.message > WM_MOUSELAST)
+			continue;
+
 		//获取鼠标在大方格以及层数栏的行列数
 		int posx = msg.x, posy = msg.y;
 		int row = (posy - Mine.Large.TopSpace) / Mine.large_cube;

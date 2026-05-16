@@ -9,4 +9,6 @@ void Judge();
 void ShowConsole();
 void UpdataBest(FILE* fp);
 void GetBest(FILE* fp);
+void ExitGame();
+bool WindowClosed();
 #endif
