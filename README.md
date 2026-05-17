@@ -4,7 +4,7 @@ Mine3D 是一个使用 C++ 编写的 Windows 桌面 3D 扫雷游戏。
 
 项目使用 MinGW-w64 编译，EasyX 绘制界面，WinMM 播放音效。
 
-## 截图
+## 新手指南
 
 ![Mine3D 游戏截图](c502def85f1417dca90d287a5bfc831c_720.jpg)
 
@@ -44,6 +44,8 @@ build.bat
 ```
 
 运行时请在仓库根目录启动程序，这样 `Sweep_IMG/` 和 `Sweep_MP3/` 中的资源才能按相对路径加载。点击窗口右上角关闭按钮会退出游戏进程。
+
+如果从 GitHub Release 下载，请先解压整个压缩包，再在解压后的目录中运行 `Mine3D.exe`。不要单独移动 `Mine3D.exe`，否则资源文件无法按相对路径加载。
 
 第一次构建时，脚本会自动下载：
 
@@ -117,10 +119,12 @@ easyx4mingw_25.9.10/
 - `Sweep_IMG/`：运行时图片资源
 - `Sweep_MP3/`：运行时音频资源
 - `build.bat`：Windows 本地构建脚本
+- `release.bat`：生成 GitHub Release 使用的 zip 包
+- `publish_release.bat`：调用 GitHub CLI 发布 Release
 
 ## 仓库说明
 
 - 不要提交生成的 `Mine3D.exe`、目标文件、调试文件
 - 不要提交 `.deps/`，这是本地依赖缓存目录
 - 不要提交 `GameRecord.txt`，这是运行时生成的本地成绩文件
-- 如果要分享可执行程序，建议把 `Mine3D.exe` 作为 GitHub Release 附件上传
+- 如果要分享可执行程序，建议把 `Mine3D-windows-x64.zip` 作为 GitHub Release 附件上传，压缩包内应包含 `Mine3D.exe`、`Sweep_IMG/` 和 `Sweep_MP3/`
