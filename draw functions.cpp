@@ -1,72 +1,78 @@
 #include "Game_Mine.h"
 #include "draw_function.h" 
 #include "algorithm_function.h"
+#include "embedded_assets.h"
 
 using namespace std;
+
+static void LoadGameImage(IMAGE* image, const char* assetName, int width, int height)
+{
+	LoadEmbeddedImage(image, assetName, width, height);
+}
 
 //加载图片(内容详见Game_Mine.h)
 void LoadIMG()
 {
-	loadimage(&Mine.record[4], _T("./Sweep_IMG/record.png"), 1200, 1000);
-	loadimage(&Mine.M_img[0], _T("./Sweep_IMG/background.png"), 1200, 1000);
-	loadimage(&Mine.M_img[7], _T("./Sweep_IMG/helpboard.png"), 1200, 1000);
-	loadimage(&Mine.M_img[20], _T("./Sweep_IMG/option.png"), 1200, 1000);
-	loadimage(&Mine.M_img[19], _T("./Sweep_IMG/restart.png"), 1200, 1000);
-	loadimage(&Mine.M_img[18], _T("./Sweep_IMG/start.png"), 1200, 1000);
-	loadimage(&Mine.M_img[17], _T("./Sweep_IMG/illustration.png"), 1200, 1000);
-	loadimage(&Mine.M_img[16], _T("./Sweep_IMG/illustration_tick.png"), 1200, 1000);
-	loadimage(&Mine.M_img[15], _T("./Sweep_IMG/return_dot.png"), Mine.icondot_wid, Mine.icondot_len);
-	loadimage(&Mine.M_img[21], _T("./Sweep_IMG/score_dot.png"), 93, 98);
-	loadimage(&Mine.M_img[22], _T("./Sweep_IMG/score.png"), 90, 90);
-	loadimage(&Mine.minus, _T("./Sweep_IMG/-.png"), Mine.mine_wid, Mine.mine_len);
-	loadimage(&Mine.mine, _T("./Sweep_IMG/mine.png"), Mine.mine_icon, Mine.mine_len);
-	loadimage(&Mine.space, _T("./Sweep_IMG/space.png"), Mine.T_space, Mine.T_len);
-	loadimage(&Mine.number[20], _T("./Sweep_IMG/colon_w.png"), Mine.num_wid, Mine.num_len);
-	loadimage(&Mine.number[21], _T("./Sweep_IMG/colon_b.png"), Mine.num_wid, Mine.num_len);
-	loadimage(&Mine.number[22], _T("./Sweep_IMG/none.png"), Mine.num_wid, Mine.num_len);
-	loadimage(&Mine.add[20], _T("./Sweep_IMG/+r.png"), Mine.add_wid, Mine.add_len);
-	loadimage(&Mine.add[21], _T("./Sweep_IMG/-w.png"), Mine.add_wid, Mine.add_len);
+	LoadGameImage(&Mine.record[4], "record", 1200, 1000);
+	LoadGameImage(&Mine.M_img[0], "background", 1200, 1000);
+	LoadGameImage(&Mine.M_img[7], "helpboard", 1200, 1000);
+	LoadGameImage(&Mine.M_img[20], "option", 1200, 1000);
+	LoadGameImage(&Mine.M_img[19], "restart", 1200, 1000);
+	LoadGameImage(&Mine.M_img[18], "start", 1200, 1000);
+	LoadGameImage(&Mine.M_img[17], "illustration", 1200, 1000);
+	LoadGameImage(&Mine.M_img[16], "illustration_tick", 1200, 1000);
+	LoadGameImage(&Mine.M_img[15], "return_dot", Mine.icondot_wid, Mine.icondot_len);
+	LoadGameImage(&Mine.M_img[21], "score_dot", 93, 98);
+	LoadGameImage(&Mine.M_img[22], "score", 90, 90);
+	LoadGameImage(&Mine.minus, "-", Mine.mine_wid, Mine.mine_len);
+	LoadGameImage(&Mine.mine, "mine", Mine.mine_icon, Mine.mine_len);
+	LoadGameImage(&Mine.space, "space", Mine.T_space, Mine.T_len);
+	LoadGameImage(&Mine.number[20], "colon_w", Mine.num_wid, Mine.num_len);
+	LoadGameImage(&Mine.number[21], "colon_b", Mine.num_wid, Mine.num_len);
+	LoadGameImage(&Mine.number[22], "none", Mine.num_wid, Mine.num_len);
+	LoadGameImage(&Mine.add[20], "+r", Mine.add_wid, Mine.add_len);
+	LoadGameImage(&Mine.add[21], "-w", Mine.add_wid, Mine.add_len);
 	char str[100] = "";
-	sprintf(str, "./Sweep_IMG/29f.png");
-	loadimage(&Mine.L_img[31], str, Mine.large_cube, Mine.large_cube);
-	loadimage(&Mine.S_img[31], str, Mine.small_cube, Mine.small_cube);
+	sprintf(str, "29f");
+	LoadGameImage(&Mine.L_img[31], str, Mine.large_cube, Mine.large_cube);
+	LoadGameImage(&Mine.S_img[31], str, Mine.small_cube, Mine.small_cube);
 	for (int i = 0; i < 4; i++)
 	{
-		sprintf(str, "./Sweep_IMG/record%d.png", i);
-		loadimage(&Mine.record[i], str, 1200, 1000);
+		sprintf(str, "record%d", i);
+		LoadGameImage(&Mine.record[i], str, 1200, 1000);
 	}
 	for (int i = 1; i <= 6; i++)
 	{
-		sprintf(str, "./Sweep_IMG/%d.png", 60 + i);
-		loadimage(&Mine.M_img[i], str, Mine.Smile_a, Mine.Smile_a);
+		sprintf(str, "%d", 60 + i);
+		LoadGameImage(&Mine.M_img[i], str, Mine.Smile_a, Mine.Smile_a);
 	}
 	for (int i = 0; i <= 6; i++)
 	{
-		sprintf(str, "./Sweep_IMG/%s.png", Mine.icon[i]);
-		loadimage(&Mine.M_img[i + 8], str, Mine.icon_wid, Mine.icon_len);
+		sprintf(str, "%s", Mine.icon[i]);
+		LoadGameImage(&Mine.M_img[i + 8], str, Mine.icon_wid, Mine.icon_len);
 	}
 	for (int i = 0; i <= 30; i++)
 	{
-		sprintf(str, "./Sweep_IMG/%d.png", i);
-		loadimage(&Mine.L_img[i], str, Mine.large_cube, Mine.large_cube);
-		loadimage(&Mine.S_img[i], str, Mine.small_cube, Mine.small_cube);
+		sprintf(str, "%d", i);
+		LoadGameImage(&Mine.L_img[i], str, Mine.large_cube, Mine.large_cube);
+		LoadGameImage(&Mine.S_img[i], str, Mine.small_cube, Mine.small_cube);
 	}
 	for (int i = 1; i <= 10; i++)
 	{
-		sprintf(str, "./Sweep_IMG/%d.png", i + 30);
-		loadimage(&Mine.D_img[i - 1], str, Mine.large_cube, Mine.large_cube);
-		sprintf(str, "./Sweep_IMG/%d.png", i + 40);
-		loadimage(&Mine.D_img[i + 9], str, Mine.large_cube, Mine.large_cube);
-		sprintf(str, "./Sweep_IMG/%d.png", i + 50);
-		loadimage(&Mine.T_img[i % 10], str, Mine.T_wid, Mine.T_len);
-		loadimage(&Mine.T_img[i % 10 + 10], str, Mine.mine_wid, Mine.mine_len);
-		loadimage(&Mine.number[i % 10], str, Mine.num_wid, Mine.num_len);
-		sprintf(str, "./Sweep_IMG/%d.png", i + 70);
-		loadimage(&Mine.number[i % 10 + 10], str, Mine.num_wid, Mine.num_len);
-		sprintf(str, "./Sweep_IMG/%d.png", i + 80);
-		loadimage(&Mine.add[i % 10], str, Mine.add_wid, Mine.add_len);
-		sprintf(str, "./Sweep_IMG/%d.png", i + 90);
-		loadimage(&Mine.add[i % 10 + 10], str, Mine.add_wid, Mine.add_len);
+		sprintf(str, "%d", i + 30);
+		LoadGameImage(&Mine.D_img[i - 1], str, Mine.large_cube, Mine.large_cube);
+		sprintf(str, "%d", i + 40);
+		LoadGameImage(&Mine.D_img[i + 9], str, Mine.large_cube, Mine.large_cube);
+		sprintf(str, "%d", i + 50);
+		LoadGameImage(&Mine.T_img[i % 10], str, Mine.T_wid, Mine.T_len);
+		LoadGameImage(&Mine.T_img[i % 10 + 10], str, Mine.mine_wid, Mine.mine_len);
+		LoadGameImage(&Mine.number[i % 10], str, Mine.num_wid, Mine.num_len);
+		sprintf(str, "%d", i + 70);
+		LoadGameImage(&Mine.number[i % 10 + 10], str, Mine.num_wid, Mine.num_len);
+		sprintf(str, "%d", i + 80);
+		LoadGameImage(&Mine.add[i % 10], str, Mine.add_wid, Mine.add_len);
+		sprintf(str, "%d", i + 90);
+		LoadGameImage(&Mine.add[i % 10 + 10], str, Mine.add_wid, Mine.add_len);
 	}
 }
 //绘制扫雷界面背景

@@ -14,8 +14,8 @@ set "TAG=%~1"
 set "TITLE=%~2"
 if not defined TITLE set "TITLE=%TAG%"
 
-set "ZIP_PATH=%ROOT_DIR%\dist\Mine3D-windows-x64.zip"
-if not exist "%ZIP_PATH%" (
+set "RELEASE_EXE=%ROOT_DIR%\dist\Mine3D-windows-x64.exe"
+if not exist "%RELEASE_EXE%" (
     call "%ROOT_DIR%\release.bat"
     if errorlevel 1 exit /b %errorlevel%
 )
@@ -38,7 +38,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-"%GH_EXE%" release create "%TAG%" "%ZIP_PATH%" --title "%TITLE%" --generate-notes
+"%GH_EXE%" release create "%TAG%" "%RELEASE_EXE%" --title "%TITLE%" --generate-notes
 if errorlevel 1 exit /b %errorlevel%
 
 echo [OK] Published release %TAG%
