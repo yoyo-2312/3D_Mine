@@ -3,8 +3,6 @@ setlocal
 chcp 65001 >nul
 
 set "TARGET=Mine3D.exe"
-set "RESOURCE_SCRIPT=%~dp0assets.rc"
-set "RESOURCE_OBJ=%~dp0assets_res.o"
 set "EASYX_VERSION=25.9.10"
 set "EASYX_URL=https://easyx.cn/download/easyx4mingw_%EASYX_VERSION%.zip"
 set "DEPS_DIR=%~dp0.deps"
@@ -23,13 +21,6 @@ if not defined CXX_EXE (
 for %%I in ("%CXX_EXE%") do set "MINGW_BIN=%%~dpI"
 for %%I in ("%MINGW_BIN%..") do set "MINGW_ROOT=%%~fI"
 for /f "delims=" %%I in ('"%CXX_EXE%" -dumpmachine') do set "GCC_MACHINE=%%I"
-set "WINDRES_EXE=%MINGW_BIN%windres.exe"
-
-if not exist "%WINDRES_EXE%" (
-    echo [ERROR] windres.exe was not found in:
-    echo         %MINGW_BIN%
-    exit /b 1
-)
 
 set "EASYX_LIB_DIR=lib32"
 echo %GCC_MACHINE% | findstr /i "x86_64 amd64" >nul
@@ -98,21 +89,13 @@ if %errorlevel% equ 0 (
     )
 )
 
-"%WINDRES_EXE%" -J rc -O coff -i "%RESOURCE_SCRIPT%" -o "%RESOURCE_OBJ%"
-if errorlevel 1 (
-    echo [ERROR] Failed to compile embedded resources.
-    exit /b %errorlevel%
-)
-
 "%CXX_EXE%" -std=c++17 -g -O0 -w -finput-charset=UTF-8 -fexec-charset=UTF-8 -static-libgcc -static-libstdc++ %EASYX_CFLAGS% ^
     -o "%TARGET%" ^
     "Main Func.cpp" ^
     "Game_Mine.cpp" ^
     "algorithm functions.cpp" ^
     "draw functions.cpp" ^
-    "embedded_assets.cpp" ^
     "mingw_compat.cpp" ^
-    "%RESOURCE_OBJ%" ^
     %EASYX_LDFLAGS% -lwinmm -lgdi32 -luser32 -lole32 -luuid
 
 if errorlevel 1 exit /b %errorlevel%

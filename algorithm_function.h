@@ -11,8 +11,4 @@ void UpdataBest(FILE* fp);
 void GetBest(FILE* fp);
 void ExitGame();
 bool WindowClosed();
-bool OpenBackgroundMusic();
-bool PlayBackgroundMusicLoop();
-bool PauseBackgroundMusic();
-bool ResumeBackgroundMusic();
 #endif

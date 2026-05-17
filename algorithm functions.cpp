@@ -1,7 +1,6 @@
 #include "Game_Mine.h"
 #include "algorithm_function.h"
 #include "draw_function.h" 
-#include "embedded_assets.h"
 using namespace std;
 
 static FILE* OpenRecordFile()
@@ -25,7 +24,6 @@ static FILE* OpenRecordFile()
 void ExitGame()
 {
 	mciSendString("close all", NULL, 0, NULL);
-	CleanupEmbeddedAssets();
 	closegraph();
 	exit(0);
 }
@@ -71,29 +69,13 @@ void UpdataBest(FILE* fp)
 //音效
 void PlayMusic(const char* mp3)
 {
-	char alias[64] = "";
-	sprintf(alias, "sfx_%s", mp3);
-	PlayEmbeddedMusic(alias, mp3);
-}
-
-bool OpenBackgroundMusic()
-{
-	return OpenEmbeddedMusic("bgm", Mine.mp3[5]);
-}
-
-bool PlayBackgroundMusicLoop()
-{
-	return PlayOpenedMusic("bgm", true);
-}
-
-bool PauseBackgroundMusic()
-{
-	return PauseEmbeddedMusic("bgm");
-}
-
-bool ResumeBackgroundMusic()
-{
-	return ResumeEmbeddedMusic("bgm");
+	char str[50] = "";
+	sprintf(str, "close ./Sweep_MP3/%s.MP3", mp3);
+	mciSendString(str, NULL, 0, NULL);
+	sprintf(str, "open ./Sweep_MP3/%s.MP3", mp3);
+	mciSendString(str, NULL, 0, NULL);
+	sprintf(str, "play ./Sweep_MP3/%s.MP3", mp3);
+	mciSendString(str, NULL, 0, NULL);
 }
 //计时
 void Time()
@@ -486,13 +468,17 @@ void MouseEvent()
 				if (!Mine.if_voice)
 				{
 					Mine.if_voice = 1;
-					PauseBackgroundMusic();
+					char str[50] = "";
+					sprintf(str, "pause ./Sweep_MP3/%s.MP3", Mine.mp3[5]);
+					mciSendString(str, NULL, 0, NULL);
 					putimage(Mine.Icon_voice.LeftSpace, Mine.Icon_voice.TopSpace, &Mine.M_img[13]);
 				}
 				else
 				{
 					Mine.if_voice = 0;
-					ResumeBackgroundMusic();
+					char str[50] = "";
+					sprintf(str, "play ./Sweep_MP3/%s.MP3 repeat", Mine.mp3[5]);
+					mciSendString(str, NULL, 0, NULL);
 					putimage(Mine.Icon_voice.LeftSpace, Mine.Icon_voice.TopSpace, &Mine.M_img[12]);
 				}
 			}

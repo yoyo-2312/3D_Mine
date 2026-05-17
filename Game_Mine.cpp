@@ -1,7 +1,6 @@
 #include "Game_Mine.h"
 #include "algorithm_function.h"
 #include "draw_function.h"
-#include "embedded_assets.h"
 struct GAME Mine;
 void PrepareGame()
 {
@@ -72,18 +71,13 @@ void PrepareGame()
 	//图标名称
 	Mine.icon[0] = "pause", Mine.icon[1] = "continue", Mine.icon[2] = "help", Mine.icon[3] = "again", Mine.icon[4] = "play", Mine.icon[5] = "quiet", Mine.icon[6] = "return", Mine.icon[7] = "return_dot";
 	//音乐名称
-	Mine.mp3[0] = "Win", Mine.mp3[1] = "Loss", Mine.mp3[2] = "Err", Mine.mp3[3] = "Click", Mine.mp3[4] = "Flag", Mine.mp3[5] = "Back", Mine.mp3[6] = "Other", Mine.mp3[7] = "Deflag";
+	Mine.mp3[0] = "win", Mine.mp3[1] = "Loss", Mine.mp3[2] = "Err", Mine.mp3[3] = "Click", Mine.mp3[4] = "Flag", Mine.mp3[5] = "Back", Mine.mp3[6] = "Other", Mine.mp3[7] = "Deflag";
 	//打开背景音乐
-	if (!PrepareEmbeddedAssets())
-	{
-		MessageBoxA(NULL, "Failed to prepare embedded assets.", "Mine3D", MB_ICONERROR | MB_OK);
-		exit(1);
-	}
-	if (!OpenBackgroundMusic())
-	{
-		MessageBoxA(NULL, "Failed to open embedded background music.", "Mine3D", MB_ICONERROR | MB_OK);
-		exit(1);
-	}
+	char str[50] = "";
+	sprintf(str, "close ./Sweep_MP3/%s.MP3", Mine.mp3[5]);
+	mciSendString(str, NULL, 0, NULL);
+	sprintf(str, "open ./Sweep_MP3/%s.MP3", Mine.mp3[5]);
+	mciSendString(str, NULL, 0, NULL);
 	//画窗口
 	initgraph(1200, 1080, EX_DBLCLKS);
 	LoadIMG();
@@ -91,7 +85,9 @@ void PrepareGame()
 void PreOperation()
 {
 	//播放背景音乐
-	PlayBackgroundMusicLoop();
+	char str[50] = "";
+	sprintf(str, "play ./Sweep_MP3/%s.MP3 repeat", Mine.mp3[5]);
+	mciSendString(str, NULL, 0, NULL);
 	//首次进入游戏
 	Mine.op = -1;
 	Mine.fst_enter_game = Mine.if_main = 1;
