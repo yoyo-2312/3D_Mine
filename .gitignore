@@ -16,6 +16,7 @@ tools/EasyX_*.exe
 
 # Local dependency cache
 .deps/
+dist/
 
 # Visual Studio
 .vs/

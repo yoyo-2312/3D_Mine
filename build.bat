@@ -89,7 +89,7 @@ if %errorlevel% equ 0 (
     )
 )
 
-"%CXX_EXE%" -std=c++17 -g -O0 -w -finput-charset=UTF-8 -fexec-charset=UTF-8 %EASYX_CFLAGS% ^
+"%CXX_EXE%" -std=c++17 -g -O0 -w -finput-charset=UTF-8 -fexec-charset=UTF-8 -static-libgcc -static-libstdc++ %EASYX_CFLAGS% ^
     -o "%TARGET%" ^
     "Main Func.cpp" ^
     "Game_Mine.cpp" ^
