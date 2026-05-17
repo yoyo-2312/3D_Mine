@@ -127,4 +127,4 @@ easyx4mingw_25.9.10/
 - 不要提交生成的 `Mine3D.exe`、目标文件、调试文件
 - 不要提交 `.deps/`，这是本地依赖缓存目录
 - 不要提交 `GameRecord.txt`，这是运行时生成的本地成绩文件
-- 如果要分享可执行程序，建议把 `Mine3D-windows-x64.zip` 作为 GitHub Release 附件上传，压缩包内应包含 `Mine3D.exe`、`Sweep_IMG/` 和 `Sweep_MP3/`
+- 如果要分享可执行程序，建议把 `Mine3D.exe` 作为 GitHub Release 附件上传
